@@ -3,14 +3,14 @@ const { tareaRepository } = require("../repositories");
 const agregarTarea = async (dataTarea, dataUsuario) => {
   return await tareaRepository.agregarTarea(dataTarea, dataUsuario);
 };
-const obtenerTareas = async (dataUsuario, limit, pagina) => {
-  return await tareaRepository.obtenerTareas(dataUsuario, limit, pagina);
+const obtenerTareas = async (usuario, opciones) => {
+  return await tareaRepository.obtenerTareas(usuario, opciones);
 };
 const obtenerTarea = async (dataTarea, dataUsuario) => {
   return await tareaRepository.obtenerTarea(dataTarea, dataUsuario);
 };
-const buscarTareas = async (dataUsuario, textoBusqueda, limit, pagina) => {
-  return await tareaRepository.buscarTareas(dataUsuario, textoBusqueda, limit, pagina);
+const buscarTareas = async (usuario, textoBusqueda, opciones) => {
+  return await tareaRepository.buscarTareas(usuario, textoBusqueda, opciones);
 };
 const modificarTarea = async (dataTarea, dataUsuario) => {
   return await tareaRepository.modificarTarea(dataTarea, dataUsuario);

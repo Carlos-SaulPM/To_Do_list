@@ -8,14 +8,8 @@ const agregarTarea = async (dataTarea, dataUsuario) => {
     console.error("Ocurrio un error al agregar la tarea");
   }
 };
-const obtenerTareas = async (dataUsuario, limit, pagina) => {
-  try {
-    let offset = (pagina - 1) * limit;
-    let result = tareaModel.obtenerTareas(dataUsuario, limit, offset);
-    return result;
-  } catch (error) {
-    console.error("Ocurrio un error al obtener las tareas ");
-  }
+const obtenerTareas = async (usuario, opciones) => {
+  return await tareaModel.obtenerTareas(usuario, opciones);
 };
 const obtenerTarea = async (dataTarea, dataUsuario) => {
   try {
@@ -25,10 +19,8 @@ const obtenerTarea = async (dataTarea, dataUsuario) => {
     console.error("Ocurrio un error al obtener la tarea");
   }
 };
-const buscarTareas = async (dataUsuario, textoBusqueda, limit, pagina) => {
-  let offset = (pagina - 1) * limit;
-  let result = tareaModel.buscarTareas(dataUsuario,textoBusqueda, limit, offset);
-  return result;
+const buscarTareas = async (usuario, textoBusqueda, opciones) => {
+  return await tareaModel.buscarTareas(usuario, textoBusqueda, opciones);
 };
 
 const modificarTarea = async (dataTarea, dataUsuario) => {
