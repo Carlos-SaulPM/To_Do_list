@@ -16,16 +16,17 @@ class modelTarea {
     const { estado, limit = 10, offset = 0 } = opciones;
 
     let QUERY = `
-  SELECT t.id_tra, t.titulo, t.descripcion, 
-         (SELECT e.estado FROM estado e WHERE e.id_tra = t.id_tra ORDER BY e.fecha_actualizacion DESC LIMIT 1) AS estado 
-  FROM tarea t
-  WHERE t.id_uso = ? AND t.estaActivo = 1
+    SELECT t.id_tra, t.titulo, t.descripcion, 
+           (SELECT e.estado FROM estado e WHERE e.id_tra = t.id_tra ORDER BY e.fecha_actualizacion DESC LIMIT 1) AS estado
+    FROM tarea t
+    WHERE t.id_uso = ? AND t.estaActivo = 1
   `;
 
     const valores = [usuario.id];
 
+    // Si el estado no es 'todos', agregamos el filtro
     if (estado && estado !== "todos") {
-      QUERY += ` AND estado = ? `;
+      QUERY += ` AND (SELECT e.estado FROM estado e WHERE e.id_tra = t.id_tra ORDER BY e.fecha_actualizacion DESC LIMIT 1) = ? `;
       valores.push(estado);
     }
 
@@ -40,16 +41,17 @@ class modelTarea {
     const { estado, limit = 10, offset = 0 } = opciones;
 
     let QUERY = `
-  SELECT t.id_tra, t.titulo, t.descripcion, 
-         (SELECT e.estado FROM estado e WHERE e.id_tra = t.id_tra ORDER BY e.fecha_actualizacion DESC LIMIT 1) AS estado
-  FROM tarea t
-  WHERE t.id_uso = ? AND t.estaActivo = 1
+    SELECT t.id_tra, t.titulo, t.descripcion, 
+           (SELECT e.estado FROM estado e WHERE e.id_tra = t.id_tra ORDER BY e.fecha_actualizacion DESC LIMIT 1) AS estado
+    FROM tarea t
+    WHERE t.id_uso = ? AND t.estaActivo = 1
     AND (t.titulo LIKE ? OR t.descripcion LIKE ?)
   `;
 
     const termino = `%${textoBusqueda}%`;
     const valores = [usuario.id, termino, termino];
 
+    // Si el estado no es 'todos', agregamos el filtro
     if (estado && estado !== "todos") {
       QUERY += ` AND (SELECT e.estado FROM estado e WHERE e.id_tra = t.id_tra ORDER BY e.fecha_actualizacion DESC LIMIT 1) = ? `;
       valores.push(estado);
