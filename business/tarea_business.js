@@ -9,6 +9,9 @@ const obtenerTareas = async (dataUsuario, limit, pagina) => {
 const obtenerTarea = async (dataTarea, dataUsuario) => {
   return await tareaRepository.obtenerTarea(dataTarea, dataUsuario);
 };
+const buscarTareas = async (dataUsuario, textoBusqueda, limit, pagina) => {
+  return await tareaRepository.buscarTareas(dataUsuario, textoBusqueda, limit, pagina);
+};
 const modificarTarea = async (dataTarea, dataUsuario) => {
   return await tareaRepository.modificarTarea(dataTarea, dataUsuario);
 };
@@ -20,6 +23,7 @@ module.exports = {
   agregarTarea,
   obtenerTareas,
   obtenerTarea,
+  buscarTareas,
   modificarTarea,
   eliminarTarea,
 };

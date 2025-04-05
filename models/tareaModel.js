@@ -4,7 +4,10 @@ class modelTarea {
   static async agregarTarea(tarea, usuario) {
     const QUERY =
       "INSERT INTO tarea(id_uso, titulo, descripcion) VALUES (?,?,?)";
-    const [result] = await pool.query(QUERY, [usuario.id, ...Object.values(tarea)]);
+    const [result] = await pool.query(QUERY, [
+      usuario.id,
+      ...Object.values(tarea),
+    ]);
     return result;
   }
   //Considerando paginado
@@ -22,11 +25,34 @@ class modelTarea {
     return result;
   }
 
+  static async buscarTareas(usuario, textoBusqueda, limite, offset) {
+    const QUERY = `
+    SELECT id_tra, titulo, descripcion 
+    FROM tarea 
+    WHERE id_uso = ? 
+    AND estaActivo = 1
+    AND (titulo LIKE ? OR descripcion LIKE ?)
+    LIMIT ? OFFSET ?
+  `;
+
+    const termino = `%${textoBusqueda}%`;
+
+    const [result] = await pool.query(QUERY, [
+      usuario.id,
+      termino,
+      termino,
+      limite,
+      offset,
+    ]);
+
+    return result;
+  }
+
   static async modificarTarea(tarea, usuario) {
     if (!tarea || !tarea.id || !usuario) {
       throw new Error("Datos de tarea o usuario inválidos");
     }
-    if (tarea.estaActivo!==undefined) {
+    if (tarea.estaActivo !== undefined) {
       let query = `
             UPDATE tarea 
             SET estaActivo = 0 

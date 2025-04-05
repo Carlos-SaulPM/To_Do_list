@@ -8,7 +8,7 @@ const morgan = require('morgan');
 const bodyparser = require('body-parser');
 const session = require("express-session");
 
-const { usuario_route, tarea_route } = require("./routes")
+const { usuario_route, tarea_route, home_route } = require("./routes")
 const { sesionActiva_middleware, error_middleware} = require("./middleware");
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -29,7 +29,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/", usuario_route)
+app.use("/", home_route);
+app.use("/", usuario_route);
 app.use("/tarea", sesionActiva_middleware,tarea_route)
 
 app.use(error_middleware);

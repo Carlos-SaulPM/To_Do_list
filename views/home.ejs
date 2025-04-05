@@ -13,52 +13,97 @@
 
       <!-- Buscador -->
       <div class="d-flex align-items-center gap-3">
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Buscar tareas..." />
+        <!-- Buscador -->
+        <form method="GET" action="/" class="d-flex">
+          <input
+            class="form-control me-2"
+            type="search"
+            name="q"
+            value="<%= textoBusqueda %>"
+            placeholder="Buscar por título o descripción..."
+          />
+          <input type="hidden" name="limite" value="<%= limite %>" />
+          <input type="hidden" name="pagina" value="1" />
+          <!-- Resetear a página 1 al buscar -->
           <button class="btn btn-outline-primary" type="submit">
-            <i class="bi bi-search"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 50 50">
-                <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
-              </svg></i>
+            <i class="bi bi-search"></i> Buscar
           </button>
         </form>
       </div>
     </div>
 
     <!-- Filtros por estado -->
-    <div class="btn-group mb-4 shadow-sm" role="group" aria-label="Filtros de estado">
-      <a href="/tareas/estado/por-hacer" class="btn btn-outline-primary active">
-        <input type="checkbox" class="btn-check" autocomplete="off" checked />
+    <div
+      class="btn-group mb-4 shadow-sm"
+      role="group"
+      aria-label="Filtros de estado"
+    >
+      <a href="/?estado=todos" class="btn btn-outline-primary" id="todos">
+        <input type="checkbox" class="btn-check" autocomplete="off" />
+        <label class="btn">Todos</label>
+      </a>
+      <a
+        href="/?estado=por_hacer"
+        class="btn btn-outline-primary"
+        id="por_hacer"
+      >
+        <input type="checkbox" class="btn-check" autocomplete="off" />
         <label class="btn">Por hacer</label>
       </a>
-      <a href="/tareas/estado/en-proceso" class="btn btn-outline-primary">
+      <a
+        href="/?estado=en_proceso"
+        class="btn btn-outline-primary"
+        id="en_proceso"
+      >
         <input type="checkbox" class="btn-check" autocomplete="off" />
         <label class="btn">En proceso</label>
       </a>
-      <a href="/tareas/estado/finalizada" class="btn btn-outline-primary">
+      <a
+        href="/?estado=finalizada"
+        class="btn btn-outline-primary"
+        id="finalizada"
+      >
         <input type="checkbox" class="btn-check" autocomplete="off" />
         <label class="btn">Finalizada</label>
       </a>
     </div>
 
     <!-- Modal de confirmación para eliminar -->
-    <div class="modal fade" id="confirmarBorradoModal" tabindex="-1" aria-labelledby="tituloModalBorrado" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="confirmarBorradoModal"
+      tabindex="-1"
+      aria-labelledby="tituloModalBorrado"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header bg-danger text-white">
             <h5 class="modal-title" id="tituloModalBorrado">
               Confirmar Eliminación
             </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
           </div>
           <div class="modal-body">
             ¿Estás seguro que deseas eliminar esta tarea? Esta acción no se
             puede revertir.
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
               Cancelar
             </button>
-            <a id="confirmarBorradoBoton" href="#" class="btn btn-danger">Eliminar</a>
+            <a id="confirmarBorradoBoton" href="#" class="btn btn-danger"
+              >Eliminar</a
+            >
           </div>
         </div>
       </div>
@@ -84,17 +129,27 @@
               <td class="fw-semibold"><%= tarea.titulo %></td>
               <td class="text-muted"><%= tarea.descripcion %></td>
               <td>
-                <span class="badge bg-<%= tarea.estado === 'Por hacer' ? 'warning' : tarea.estado === 'En proceso' ? 'info' : 'success' %>">
+                <span
+                  class="badge bg-<%= tarea.estado === 'Por hacer' ? 'warning' : tarea.estado === 'En proceso' ? 'info' : 'success' %>"
+                >
                   <%= tarea.estado %>
                 </span>
               </td>
               <td class="text-end pe-3">
-                <a class="btn btn-warning btn-sm" href="/tarea/modificar/<%= tarea.id_tra %>">
+                <a
+                  class="btn btn-warning btn-sm"
+                  href="/tarea/modificar/<%= tarea.id_tra %>"
+                >
                   <i class="bi bi-pencil-square me-1"></i>MODIFICAR
                 </a>
               </td>
               <td class="text-start ps-3">
-                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmarBorradoModal" data-url-borrado="/tarea/eliminar/<%= tarea.id_tra %>">
+                <button
+                  class="btn btn-danger btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#confirmarBorradoModal"
+                  data-url-borrado="/tarea/eliminar/<%= tarea.id_tra %>"
+                >
                   <i class="bi bi-trash me-1"></i>ELIMINAR
                 </button>
               </td>
@@ -110,18 +165,69 @@
         </table>
       </div>
     </div>
+
+    <!-- Paginación -->
+    <% if (tareas && tareas.length > 0) { %>
+    <nav aria-label="Page navigation" class="mt-4">
+      <ul class="pagination justify-content-center">
+        <% if (pagina > 1) { %>
+        <li class="page-item">
+          <a
+            class="page-link"
+            href="/?q=<%= textoBusqueda %>&limite=<%= limite %>&pagina=<%= pagina - 1 %>"
+          >
+            Anterior
+          </a>
+        </li>
+        <% } %>
+        <li class="page-item active">
+          <span class="page-link"><%= pagina %></span>
+        </li>
+        <% if (tareas.length === limite) { %>
+        <li class="page-item">
+          <a
+            class="page-link"
+            href="/?q=<%= textoBusqueda %>&limite=<%= limite %>&pagina=<%= pagina + 1 %>"
+          >
+            Siguiente
+          </a>
+        </li>
+        <% } %>
+      </ul>
+    </nav>
+    <% } %>
   </div>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const modalBorrado = document.getElementById('confirmarBorradoModal');
-      const botonBorrado = document.getElementById('confirmarBorradoBoton');
+    document.addEventListener("DOMContentLoaded", function () {
+      const modalBorrado = document.getElementById("confirmarBorradoModal");
+      const botonBorrado = document.getElementById("confirmarBorradoBoton");
 
-      modalBorrado.addEventListener('show.bs.modal', function(evento) {
+      modalBorrado.addEventListener("show.bs.modal", function (evento) {
         const boton = evento.relatedTarget;
-        const urlBorrado = boton.getAttribute('data-url-borrado');
-        botonBorrado.setAttribute('href', urlBorrado);
+        const urlBorrado = boton.getAttribute("data-url-borrado");
+        botonBorrado.setAttribute("href", urlBorrado);
       });
     });
+  </script>
+  <script>
+    // Obtener el parámetro 'estado' de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const estado = urlParams.get("estado") || "todos"; // Valor por defecto ahora es 'todos'
+
+    // Activar el botón correspondiente
+    document.querySelectorAll(".btn-group .btn").forEach((btn) => {
+      btn.classList.remove("active");
+      const checkbox = btn.querySelector(".btn-check");
+      if (checkbox) checkbox.checked = false;
+    });
+
+    const btnActivo =
+      document.getElementById(estado) || document.getElementById("todos");
+    if (btnActivo) {
+      btnActivo.classList.add("active");
+      const checkbox = btnActivo.querySelector(".btn-check");
+      if (checkbox) checkbox.checked = true;
+    }
   </script>
 </body>
 

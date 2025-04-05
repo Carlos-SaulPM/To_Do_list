@@ -22,7 +22,7 @@ const guardarNuevoUsuario = async (req, res) => {
 
 //Vista login
 const iniciarSesionView = async (req, res) => {
-  res.render("usuarios/login");
+  res.render("usuarios/login",{mensajeError: null});
 };
 
 //Login
@@ -50,13 +50,7 @@ const logout = (req, res) => {
     res.redirect("/login");
   });
 }
-//Vista login
-const homeView = async (req, res) => {
-  const { limite = 10, pagina = 1 } = req.query;
-  const tareas = await tarea_business.obtenerTareas({ id: req.session.user.id_uso }, limite, pagina)
-  //console.log("TAREAS: ",tareas);
-  res.render("home", {tareas});
-};
+
 
 
 module.exports = {
@@ -64,6 +58,5 @@ module.exports = {
   guardarNuevoUsuario,
   iniciarSesionView,
   iniciarSesion,
-  homeView,
   logout
 };
