@@ -3,13 +3,36 @@ const app = express();
 const PORT = 3000;
 
 require("dotenv").config();
+const path = require("path")
+const morgan = require('morgan');
+const bodyparser = require('body-parser');
+const session = require("express-session");
 
-const {usuarioModel} = require("./models")
+const { usuario_route, tarea_route } = require("./routes")
+const { sesionActiva_middleware, error_middleware} = require("./middleware");
 
-app.get("/register", async (req, res) => {
-  await usuarioModel.crearNuevoUsuario({});
-  res.status(200).json({mensaje: "ok"});
-})
+app.use(express.static(path.join(__dirname, "public")));
+app.set("view engine", "ejs");
+app.use(morgan("tiny"));
+app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyparser.json());
+app.use(
+  session({
+    secret: "ClaveSecreta",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 300000 },
+  })
+);
+app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  next();
+});
+
+app.use("/", usuario_route)
+app.use("/tarea", sesionActiva_middleware,tarea_route)
+
+app.use(error_middleware);
 
 
 app.listen(PORT, () => {

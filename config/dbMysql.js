@@ -1,23 +1,18 @@
 const mysql = require("mysql2/promise");
 
 const config = {
-  host: "localhost",
-  user: "root",
-  password: "110403",
-  database: "dbTareas",
-  port: 3306,
+  host: process.env.db_host,
+  user: process.env.db_user,
+  password: process.env.db_password,
+  database: process.env.db_database,
+  port: process.env.db_port,
+  
 };
+const pool = mysql.createPool({
+  ...config,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+});
 
-
-const conexion = mysql
-  .createConnection(config)
-  .then((conn) => {
-    console.log("✅ Conexión a MySQL lista");
-    return conn;
-  })
-  .catch((err) => {
-    console.error("❌ Error al conectar:", err);
-    throw err; 
-  });
-
-module.exports = conexion;
+module.exports = pool;

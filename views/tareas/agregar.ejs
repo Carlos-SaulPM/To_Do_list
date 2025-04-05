@@ -1,0 +1,39 @@
+<%- include('../templates/head') %>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                
+                <!-- Contenedor del formulario -->
+                <div class="form-container">
+                    <h2 class="form-title">Registrar Nueva Tarea</h2>
+                    
+                    <form method="post" action="/tarea/guardar">
+                        <!-- Campo para el título -->
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label">Título</label>
+                            <input type="text" class="form-control" id="titulo" name="titulo" required 
+                                   placeholder="Ej: Comprar víveres">
+                        </div>
+                        
+                        
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción:</label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="4" 
+                                      placeholder="Realizar..."></textarea>
+                        </div>
+                        
+                        <!-- Botones de acción -->
+                        <div class="d-flex justify-content-between btn-actions">
+                              <a href="/" class="btn btn-danger">Cancelar</a>
+                            <button type="submit" class="btn btn-primary">Guardar Tarea</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<%- include('../templates/footer') %>

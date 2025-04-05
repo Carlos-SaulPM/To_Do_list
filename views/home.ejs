@@ -1,0 +1,95 @@
+<%- include('templates/header') %>
+
+<body class="bg-light">
+  <div class="container py-4">
+    <!-- Agregar tarea y buscador -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <!--Agregar -->
+      <div>
+        <a class="btn btn-success" href="/tarea/crear">
+          <i class="bi bi-plus-circle me-1"></i>AGREGAR TAREA
+        </a>
+      </div>
+      
+      <!-- Buscador -->
+      <div class="d-flex align-items-center gap-3">
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Buscar tareas...">
+          <button class="btn btn-outline-primary" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Filtros por estado -->
+    <div class="btn-group mb-4 shadow-sm" role="group" aria-label="Filtros de estado">
+      <a href="/tareas/estado/por-hacer" class="btn btn-outline-primary active">
+        <input type="checkbox" class="btn-check" autocomplete="off" checked>
+        <label class="btn">Por hacer</label>
+      </a>
+      <a href="/tareas/estado/en-proceso" class="btn btn-outline-primary">
+        <input type="checkbox" class="btn-check" autocomplete="off">
+        <label class="btn">En proceso</label>
+      </a>
+      <a href="/tareas/estado/finalizada" class="btn btn-outline-primary">
+        <input type="checkbox" class="btn-check" autocomplete="off">
+        <label class="btn">Finalizada</label>
+      </a>
+    </div>
+
+    <!-- Tabla de tareas -->
+    <div class="card shadow-sm border-0 overflow-hidden">
+      <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col" class="ps-4">#</th>
+              <th scope="col">TÍTULO</th>
+              <th scope="col">DESCRIPCIÓN</th>
+              <th scope="col">ESTADO</th>
+              <th scope="col" colspan="2" class="text-center">ACCIONES</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (tareas) { %>
+              <% tareas.forEach((tarea, index) => { %>
+                <tr class="align-middle">
+                  <th scope="row" class="ps-4 fw-normal"><%= index + 1 %></th>
+                  <td class="fw-semibold"><%= tarea.titulo %></td>
+                  <td class="text-muted"><%= tarea.descripcion %></td>
+                  <td>
+                    <span class="badge bg-<%= 
+                      tarea.estado === 'Por hacer' ? 'warning' : 
+                      tarea.estado === 'En proceso' ? 'info' : 'success' 
+                    %>">
+                      <%= tarea.estado %>
+                    </span>
+                  </td>
+                  <td class="text-end pe-3">
+                    <a class="btn btn-warning btn-sm" href="/tarea/modificar/<%= tarea.id_tra %>">
+                      <i class="bi bi-pencil-square me-1"></i>MODIFICAR
+                    </a>
+                  </td>
+                  <td class="text-start ps-3">
+                    <a class="btn btn-danger btn-sm" href="/tarea/eliminar/<%= tarea.id_tra %>">
+                      <i class="bi bi-trash me-1"></i>ELIMINAR
+                    </a>
+                  </td>
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <tr>
+                <td colspan="6" class="text-center py-4 text-muted">
+                  No hay tareas registradas
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+<%- include('templates/footer') %>

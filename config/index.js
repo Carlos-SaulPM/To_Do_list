@@ -1,2 +1,2 @@
-const conexion = require("./dbMysql");
-module.exports = { conexion };
+const pool = require("./dbMysql");
+module.exports = { pool };

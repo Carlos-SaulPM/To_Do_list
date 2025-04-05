@@ -1,0 +1,60 @@
+<%- include('../templates/head') %>
+<body>
+  <section class="vh-100 bg-image"
+  style="background-image: url('https://images.pexels.com/photos/3826678/pexels-photo-3826678.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Crea una cuenta</h2>
+
+              <form method="post" action="/register" >
+
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <label class="form-label" for="nombre">Nombre</label>
+                  <input type="text" id="nombre" class="form-control form-control-lg" name="nombre"/>
+                </div>
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <label class="form-label" for="apellidoPaterno">Apellido paterno</label>
+                  <input type="text" id="apellidoPaterno" class="form-control form-control-lg" name="apellidoPaterno"/>
+                </div>
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <label class="form-label" for="apellidoMaterno">Apellido materno</label>
+                  <input type="text" id="apellidoMaterno" class="form-control form-control-lg" name="apellidoMaterno"/>
+                </div>
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <label class="form-label" for="fechaNacimiento">Fecha de nacimiento</label>
+                  <input type="date" id="fechaNacimiento" class="form-control form-control-lg" name="fechaNacimiento"/>
+                </div>
+
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <label class="form-label" for="correo">Correo</label>
+                  <input type="email" id="correo" class="form-control form-control-lg" name="correo" />
+                </div>
+
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <label class="form-label" for="password">Contraseña</label>
+                  <input type="password" id="password" class="form-control form-control-lg" name="password"/>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <input type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" value="Registrar">
+
+                </div>
+                
+
+                <p class="text-center text-muted mt-5 mb-0">¿Ya tienes una cuenta? <a href="/login"
+                    class="fw-bold text-body"><u>Iniciar sesion</u></a></p>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+<%- include('../templates/footer') %>
