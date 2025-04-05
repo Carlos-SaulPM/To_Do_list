@@ -2,7 +2,6 @@ const { pool } = require("../config");
 
 class modelTarea {
   static async agregarTarea(tarea, usuario) {
-    console.log("USUARIO AGREGAR TAREA:",usuario);
     const QUERY =
       "INSERT INTO tarea(id_uso, titulo, descripcion) VALUES (?,?,?)";
     const [result] = await pool.query(QUERY, [usuario.id, ...Object.values(tarea)]);

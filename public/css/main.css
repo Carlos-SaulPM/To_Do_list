@@ -1,40 +1,65 @@
-.gradient-custom-3 {
-  /* fallback for old browsers */
-  background: #84fab0;
-
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
-
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
+/* Estilos generales para ambos formularios */
+.auth-bg {
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
 }
 
-.gradient-custom-4 {
-  /* fallback for old browsers */
-  background: #84fab0;
-
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
-
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
+.auth-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
-body {
-  padding: 20px;
-  background-color: #f8f9fa;
+.auth-card {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-.task-table {
-  background-color: white;
+.auth-title {
+  color: #2c3e50;
+}
+
+.auth-form .form-floating {
+  margin-bottom: 1.5rem;
+}
+
+.auth-form .form-control {
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: calc(3.5rem + 2px);
+  padding: 1rem 0.75rem;
 }
 
-.nav-section {
-  margin-bottom: 20px;
+.auth-form .form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
 }
 
-.task-title {
-  font-weight: bold;
+.auth-btn {
+  background-color: #3498db;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-weight: 600;
+  width: 100%;
+}
+
+.auth-btn:hover {
+  background-color: #2980b9;
+}
+
+.auth-link {
+  color: #3498db !important;
+}
+
+.auth-link:hover {
+  text-decoration: underline !important;
+}
+
+/* Estilos específicos para register */
+.register-bg {
+  background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+}
+
+/* Estilos específicos para login */
+.login-bg {
+  background-image: url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
 }

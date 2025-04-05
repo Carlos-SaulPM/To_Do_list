@@ -1,45 +1,54 @@
 <%- include('../templates/head') %>
+<link rel="stylesheet" href="/css/main.css">
 <body>
-  <section class="vh-100 bg-image"
-  style="background-image: url('https://images.pexels.com/photos/3826678/pexels-photo-3826678.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
-  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-    <div class="container h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-          <div class="card" style="border-radius: 15px;">
-            <div class="card-body p-5">
-              <h2 class="text-uppercase text-center mb-5">Iniciar Sesion</h2>
+  <section class="vh-100 auth-bg login-bg">
+    <div class="mask d-flex align-items-center h-100 auth-overlay">
+      <div class="container h-100 py-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+            <div class="card auth-card">
+              <div class="card-body p-4 p-md-5">
+                <h2 class="text-uppercase text-center mb-4 auth-title">
+                  <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+                </h2>
 
-              <form method="post" action="/login" >
+                <form method="post" action="/login" class="auth-form">
 
-               
-                <div data-mdb-input-init class="form-outline mb-4">
-                  <label class="form-label" for="correo">Correo</label>
-                  <input type="email" id="correo" class="form-control form-control-lg" name="correo" value="user1@gmail.com" />
-                </div>
+                  <div class="form-floating mb-3">
+                    <input type="email" id="correo" class="form-control" name="correo" 
+                    placeholder="Correo electrónico" value="user1@gmail.com" required>
+                    <label for="correo">Correo electrónico</label>
+                  </div>
 
-                <div data-mdb-input-init class="form-outline mb-4">
-                  <label class="form-label" for="password">Contraseña</label>
-                  <input type="password" id="password" class="form-control form-control-lg" name="password" value="12345" />
-                </div>
+                  <div class="form-floating mb-3">
+                    <input type="password" id="password" class="form-control" name="password" 
+                    placeholder="Contraseña" value="12345" required>
+                    <label for="password">Contraseña</label>
+                  </div>
 
-                <div class="d-flex justify-content-center">
-                  <input type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" value="Iniciar sesion">
+                  <div class="d-grid gap-2 mb-3">
+                    <button type="submit" class="btn text-white auth-btn">
+                      <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+                    </button>
+                  </div>
 
-                </div>
-                
+                  <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Recordar mis datos</label>
+                  </div>
+                  
+                  <p class="text-center text-muted mt-3 mb-0">¿No tienes una cuenta? 
+                    <a href="/register" class="fw-bold auth-link"><u>Registrarse</u></a>
+                  </p>
 
-                <p class="text-center text-muted mt-5 mb-0">¿No tienes una cuenta? <a href="/register"
-                    class="fw-bold text-body"><u>Registrarse</u></a></p>
+                </form>
 
-              </form>
-
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </body>
 <%- include('../templates/footer') %>
