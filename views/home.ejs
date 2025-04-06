@@ -15,7 +15,7 @@
       <div class="d-flex align-items-center gap-3">
         <!-- Buscador -->
         <form method="GET" action="/" class="d-flex">
-          <input class="form-control me-2" type="search" name="q" value="<%= textoBusqueda %>" placeholder="Buscar por título o descripción..." />
+          <input class="form-control me-2" type="search" name="textoBusqueda" value="<%= textoBusqueda %>" placeholder="Buscar por título o descripción..." />
           <input type="hidden" name="limite" value="<%= limite %>" />
           <input type="hidden" name="pagina" value="1" />
           <input type="hidden" name="estado" value="<%= estado %>" />
@@ -85,9 +85,10 @@
             <td class="text-muted"><%= tarea.descripcion %></td>
             <td>
               <span class="badge bg-<%= tarea.estado === 'Por hacer' ? 'warning' : tarea.estado === 'En proceso' ? 'info' : 'success' %>">
-                <%= tarea.estado %>
+
               </span>
             </td>
+            
             <td class="text-end pe-3">
               <a class="btn btn-warning btn-sm" href="/tarea/modificar/<%= tarea.id_tra %>">
                 <i class="bi bi-pencil-square me-1"></i>MODIFICAR
@@ -129,11 +130,12 @@
 
       <% if (tareas.length === limite) { %>
       <li class="page-item">
-        <a class="page-link" href="/?q=<%= textoBusqueda %>&estado=<%= estado %>&limite=<%= limite %>&pagina=<%= pagina + 1 %>">
+        <a class="page-link" href="/?textoBusqueda=<%= textoBusqueda %>&estado=<%= estado %>&limite=<%= limite %>&pagina=<%= pagina + 1 %>">
           Siguiente
         </a>
       </li>
       <% } %>
+
     </ul>
   </nav>
   <% } %>

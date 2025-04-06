@@ -16,6 +16,4 @@ modulos:
   "mysql2": "^3.14.0",
   "nodemon": "^3.1.9"
 ```
-**[Desarrollo]** Barra de búsqueda
-
-**[Desarrollo]** Tareas por estado
+**[Desarrollo]** Cambiar de estado las tareas.

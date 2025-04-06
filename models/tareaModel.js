@@ -12,9 +12,10 @@ class modelTarea {
     return result;
   }
 
-  static async obtenerTareas(usuario, opciones = {}) {
-    const { estado, limit = 10, offset = 0 } = opciones;
-
+  static async listarTareas(
+    usuario,
+    { textoBusqueda = "", estado, limit = 10, offset = 0 } = {}
+  ) {
     let QUERY = `
     SELECT t.id_tra, t.titulo, t.descripcion, 
            (SELECT e.estado FROM estado e WHERE e.id_tra = t.id_tra ORDER BY e.fecha_actualizacion DESC LIMIT 1) AS estado
@@ -24,35 +25,13 @@ class modelTarea {
 
     const valores = [usuario.id];
 
-    // Si el estado no es 'todos', agregamos el filtro
-    if (estado && estado !== "todos") {
-      QUERY += ` AND (SELECT e.estado FROM estado e WHERE e.id_tra = t.id_tra ORDER BY e.fecha_actualizacion DESC LIMIT 1) = ? `;
-      valores.push(estado);
+    if (textoBusqueda) {
+      QUERY += ` AND (t.titulo LIKE ? OR t.descripcion LIKE ?) `;
+      const termino = `%${textoBusqueda}%`;
+      valores.push(termino, termino);
     }
 
-    QUERY += ` LIMIT ? OFFSET ?`;
-    valores.push(limit, offset);
-
-    const [result] = await pool.query(QUERY, valores);
-    return result;
-  }
-
-  static async buscarTareas(usuario, textoBusqueda, opciones = {}) {
-    const { estado, limit = 10, offset = 0 } = opciones;
-
-    let QUERY = `
-    SELECT t.id_tra, t.titulo, t.descripcion, 
-           (SELECT e.estado FROM estado e WHERE e.id_tra = t.id_tra ORDER BY e.fecha_actualizacion DESC LIMIT 1) AS estado
-    FROM tarea t
-    WHERE t.id_uso = ? AND t.estaActivo = 1
-    AND (t.titulo LIKE ? OR t.descripcion LIKE ?)
-  `;
-
-    const termino = `%${textoBusqueda}%`;
-    const valores = [usuario.id, termino, termino];
-
-    // Si el estado no es 'todos', agregamos el filtro
-    if (estado && estado !== "todos") {
+    if (estado !== undefined && estado !== "todos") {
       QUERY += ` AND (SELECT e.estado FROM estado e WHERE e.id_tra = t.id_tra ORDER BY e.fecha_actualizacion DESC LIMIT 1) = ? `;
       valores.push(estado);
     }
