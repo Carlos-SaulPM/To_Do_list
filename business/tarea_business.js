@@ -1,23 +1,45 @@
+const { tareaModel } = require("../models");
 const { tareaRepository } = require("../repositories");
 
+/**
+ * @param {} usuario
+ * @returns
+ */
 const listarTareas = async (usuario, opciones) => {
   return await tareaRepository.listarTareas(usuario, opciones);
 };
 
-const agregarTarea = async (dataTarea, dataUsuario) => {
-  return await tareaRepository.agregarTarea(dataTarea, dataUsuario);
+/**
+ * @param {tareaModel} tarea
+ * @returns
+ */
+
+const agregarTarea = async (tarea) => {
+  return await tareaRepository.agregarTarea(tarea);
 };
 
-const obtenerTarea = async (dataTarea, dataUsuario) => {
-  return await tareaRepository.obtenerTarea(dataTarea, dataUsuario);
+/**
+ * @param {tareaModel} tarea
+ * @returns
+ */
+const obtenerTarea = async (tarea) => {
+  return await tareaRepository.obtenerTarea(tarea);
 };
 
-const modificarTarea = async (dataTarea, dataUsuario) => {
-  return await tareaRepository.modificarTarea(dataTarea, dataUsuario);
+/**
+ * @param {tareaModel} tarea
+ * @returns
+ */
+const modificarTarea = async (tarea) => {
+  return await tareaRepository.modificarTarea(tarea);
 };
 
-const eliminarTarea = async (dataTarea, dataUsuario) => {
-  return await tareaRepository.eliminarTarea(dataTarea, dataUsuario);
+/**
+ * @param {tareaModel} tarea
+ * @returns
+ */
+const eliminarTarea = async (tarea) => {
+  return await tareaRepository.eliminarTarea(tarea);
 };
 
 module.exports = {

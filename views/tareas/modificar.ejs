@@ -8,7 +8,7 @@
           <h2 class="form-title">Modificar Tarea</h2>
 
           <form action="/tarea/modificar" method="POST">
-            <input type="hidden" name="id" value="<%= tarea.id_tra %>">
+            <input type="hidden" name="id" value="<%= tarea.id_tarea %>">
             <div class="mb-3">
               <label for="titulo" class="form-label">Título</label>
               <input type="text" class="form-control" id="titulo" name="titulo" required value="<%= tarea.titulo %>">

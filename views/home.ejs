@@ -32,7 +32,7 @@
     <div class="btn-group mb-4 shadow-sm" role="group" aria-label="Filtros de estado">
       <% const estados = ["todos", "por_hacer", "en_proceso", "finalizada"]; %>
       <% estados.forEach(e => { %>
-      <a href="/?estado=<%= e %>&q=<%= textoBusqueda %>&limite=<%= limite %>&pagina=1" class="btn btn-outline-primary <%= estado === e ? 'active' : '' %>" id="<%= e %>">
+      <a href="/?estado=<%= e %>&textoBusqueda=<%= textoBusqueda %>&limite=<%= limite %>&pagina=1" class="btn btn-outline-primary <%= estado === e ? 'active' : '' %>" id="<%= e %>">
         <%= e.replace("_", " ").toUpperCase() %>
       </a>
       <% }) %>
@@ -90,12 +90,12 @@
             </td>
             
             <td class="text-end pe-3">
-              <a class="btn btn-warning btn-sm" href="/tarea/modificar/<%= tarea.id_tra %>">
+              <a class="btn btn-warning btn-sm" href="/tarea/modificar/<%= tarea.id_tarea %>">
                 <i class="bi bi-pencil-square me-1"></i>MODIFICAR
               </a>
             </td>
             <td class="text-start ps-3">
-              <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmarBorradoModal" data-url-borrado="/tarea/eliminar/<%= tarea.id_tra %>">
+              <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmarBorradoModal" data-url-borrado="/tarea/eliminar/<%= tarea.id_tarea %>">
                 <i class="bi bi-trash me-1"></i>ELIMINAR
               </button>
             </td>

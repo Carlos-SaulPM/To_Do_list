@@ -1,4 +1,4 @@
 const usuarioRepository = require('./usuario_repository');
-const tareaRepository = require("./tarea_repository");
+const tareaRepository = require("./tareaEntity");
 
 module.exports = {tareaRepository, usuarioRepository}

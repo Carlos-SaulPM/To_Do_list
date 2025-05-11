@@ -1,4 +1,5 @@
 const { tarea_business } = require("../business");
+const { tareaModel } = require("../models");
 
 const crearTareaView = (req, res) => {
   res.render("tareas/agregar");
@@ -6,49 +7,56 @@ const crearTareaView = (req, res) => {
 
 const guardarTarea = async (req, res, next) => {
   const { titulo, descripcion } = req.body;
-  const { id_uso } = req.session.user;
-  try {
-    const tareaGuardada = await tarea_business.agregarTarea(
-      { titulo, descripcion },
-      { id: id_uso }
-    );
-    res.redirect("/");
-  } catch (error) {
-    next(error);
-  }
-};
-const modificarTareaView = async (req, res, next) => {
-  const id_tra = req.params.id;
-  const { id_uso } = req.session.user;
+  const { id_usuario } = req.session.user;
+  const tarea = tareaModel.tareaParaGuardar(Number(id_usuario), titulo, descripcion);
   await tarea_business
-    .obtenerTarea({ id: id_tra }, { id: id_uso })
+    .agregarTarea(tarea)
+    .then(() => res.redirect("/"))
+    .catch((error) => next(error));
+};
+
+const modificarTareaView = async (req, res, next) => {
+  const id_tarea = req.params.id;
+  const { id_usuario } = req.session.user;
+  const tarea = tareaModel.tareaParaObtener(id_tarea, id_usuario);
+  await tarea_business
+    .obtenerTarea(tarea)
     .then((tarea) => {
-      tarea[0].id_tra = id_tra;
+      tarea[0].id_tarea = id_tarea;
       res.render("tareas/modificar", { tarea: tarea[0] });
     })
     .catch((error) => next(error));
 };
 
 const modificarTarea = async (req, res, next) => {
+  const { titulo, descripcion } = req.body;
+  const ID_TAREA = Number(req.body.id);
+  const ID_USUARIO = Number(req.session.user.id_usuario);
+  
+
+  let tarea = new tareaModel(ID_TAREA, ID_USUARIO, titulo, descripcion);
+
+  if (req.body.estado !== undefined || req.body.estado !== "todos") {
+    //Para modificarEstado
+    const tiposEstados = {
+      por_hacer: false,
+      en_proceso: null,
+      finalizada: true,
+    };
+    tarea.setEstado = tiposEstados[req.body.estado];
+  }
   await tarea_business
-    .modificarTarea(
-      {
-        titulo: req.body.titulo,
-        descripcion: req.body.descripcion,
-        id: req.body.id,
-      },
-      { id: req.session.user.id_uso }
-    )
+    .modificarTarea(tarea)
     .then(res.redirect("/"))
     .catch((error) => next(error));
 };
 
 const eliminarTarea = async (req, res, next) => {
+  const ID_TAREA = Number(req.params.id);
+  const ID_USUARIO = Number(req.session.user.id_usuario);
+  const tarea = tareaModel.tareaParaEliminar(ID_TAREA,ID_USUARIO, 0);
   await tarea_business
-    .eliminarTarea(
-      { id: req.params.id, estaActivo: false },
-      { id: req.session.user.id_uso }
-    )
+    .eliminarTarea(tarea)
     .then(() => res.redirect("/"))
     .catch((error) => next(error));
 };

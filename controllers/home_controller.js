@@ -13,7 +13,7 @@ const mapearEstado = (estado) => {
   }
 };
 
-const homeView = async (req, res) => {
+const homeView = async (req, res, next) => {
   const {
     limite = 10,
     pagina = 1,
@@ -21,30 +21,30 @@ const homeView = async (req, res) => {
     estado: estadoRaw = "todos",
   } = req.query;
 
-  // Validar que pagina sea un número válido y mayor o igual a 1
-  const paginaValida = Math.max(parseInt(pagina), 1); // Asegura que la página nunca sea menor que 1
+  const paginaValida = Math.max(parseInt(pagina), 1);
 
   const estado = mapearEstado(estadoRaw);
-
   const opciones = {
     estado,
     textoBusqueda,
     limit: parseInt(limite),
-    offset: (paginaValida - 1) * parseInt(limite), // Usar la página válida aquí
+    offset: (paginaValida - 1) * parseInt(limite),
   };
 
-  const usuario = { id: req.session.user.id_uso };
+  const usuario = { id: req.session.user.id_usuario };
 
-  const tareas = await tarea_business.listarTareas(usuario, opciones);
-
-  res.render("home", {
-    tareas,
-    textoBusqueda,
-    limite: parseInt(limite),
-    pagina: paginaValida, // Asegurarse de que la página mostrada sea válida
-    estado: estadoRaw,
-  });
+  await tarea_business
+    .listarTareas(usuario, opciones)
+    .then((tareas) => {
+      res.render("home", {
+        tareas,
+        textoBusqueda,
+        limite: parseInt(limite),
+        pagina: paginaValida,
+        estado: estadoRaw,
+      });
+    })
+    .catch((error) => next(error));
 };
-
 
 module.exports = { homeView };
